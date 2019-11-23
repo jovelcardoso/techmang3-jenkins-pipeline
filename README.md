@@ -6,7 +6,7 @@
   ```
 - Run the following command to setup a jenkins server
   ```bash
-  cd techmang3-jenkins-pipeline/scripts/kubernetes
+  cd techmang3-jenkins-pipeline/kubernetes
   ```
   ```bash
   ./setup-softwares.sh
@@ -19,7 +19,7 @@
   ```
 - Run the following command to setup a jenkins server
   ```bash
-  cd techmang3-jenkins-pipeline/scripts/jenkins
+  cd techmang3-jenkins-pipeline/jenkins
   ```
   ```bash
   ./setup-jenkins.sh
