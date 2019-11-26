@@ -22,13 +22,13 @@ def call(gitUsername, repositoryName, dockerUsername) {
     stage('Build and Test') {
         node('master') {
             // Building the docker image.
-            sh "docker build -t ${dockerImageName} ./${repositoryName}";
+            // sh "docker build -t ${dockerImageName} ./${repositoryName}";
             
             // Runing the test cases on the docker image if it is applicable.
             sh "echo 'Running test cases'";
             
             // Pushing the docker image.
-            sh "docker push ${dockerImageName}";
+            // sh "docker push ${dockerImageName}";
             
         }
     }
