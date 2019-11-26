@@ -35,6 +35,14 @@ def call(gitUsername, repositoryName, dockerUsername) {
     
     stage('Deploy on Staging') {
         node('master') {
+                    def userInput = input(
+            id: 'userInput', message: 'This is PRODUCTION!', parameters: [
+            [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm you sure to proceed']
+        ])
+
+        if(!userInput) {
+            error "Build was canceled";
+        }
             sh "echo 'Deploy on staging'";
             sh "python3 ~/kube_renderer/kube_renderer.py --instance_status staging --docker_image_version ${imageVersion} --base_dir ./${repositoryName} | kubectl apply -f -"
         }
