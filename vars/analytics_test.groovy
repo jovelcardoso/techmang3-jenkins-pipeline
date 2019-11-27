@@ -8,7 +8,9 @@ def call() {
 //            sh "git clone --single-branch -b master https://github.com/${gitUsername}/${repositoryName}.git";
             // Pulling the changes to the renderer repository.
 //            sh "cd ~/kube_renderer && git pull";
+            sh "pwd"
             sh "cd /home/mis/"
+
             sh "cd insight/"
             sh "ls"
             // Setting up the minor build version
