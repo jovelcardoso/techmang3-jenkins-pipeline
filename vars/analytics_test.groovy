@@ -12,7 +12,7 @@ def call(gitUsername, repositoryName) {
 //            sh "cd ~/home/mis/"
 
             sh "cd ${repositoryName}/"
-            sh "ls"
+            sh "ls -sh"
             // Setting up the minor build version
             Date date = new Date()
             // Populating the image version.
