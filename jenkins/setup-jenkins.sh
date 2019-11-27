@@ -35,4 +35,4 @@ sudo echo $(sudo lxc exec jenkinsserver -- su - jenkins -c  "hostname -I" | awk 
 sudo lxc exec jenkinsserver -- su - jenkins -c 'docker login'
 
 # Cloning the kube renderer
-sudo lxc exec jenkinsserver -- su - jenkins -c 'git clone https://github.com/amithapa/kube_renderer.git'
+sudo lxc exec jenkinsserver -- su - jenkins -c 'git clone https://github.com/jovelcardoso/kube_renderer.git'
