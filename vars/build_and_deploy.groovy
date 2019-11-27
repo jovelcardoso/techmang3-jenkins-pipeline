@@ -22,21 +22,28 @@ def call(gitUsername, repositoryName, dockerUsername) {
     stage('Build and Test') {
         node('master') {
             // Building the docker image.
-            sh "docker build -t ${dockerImageName} ./${repositoryName}";
+            // sh "docker build -t ${dockerImageName} ./${repositoryName}";
             
             // Runing the test cases on the docker image if it is applicable.
             sh "echo 'Running test cases'";
             
             // Pushing the docker image.
-            sh "docker push ${dockerImageName}";
+            // sh "docker push ${dockerImageName}";
             
         }
     }
     
     stage('Deploy on Staging') {
         node('master') {
+                    def userInput = input(
+            id: 'userInput', message: 'This is Staging!', parameters: [
+            [$class: 'BooleanParameterDefinition', defaultValue: false, description: '', name: 'Please confirm you sure to proceed']
+        ])
+
+        if(!userInput) {
+            error "Build was canceled";
+        }
             sh "echo 'Deploy on staging'";
-            sh "python3 ~/kube_renderer/kube_renderer.py --instance_status staging --docker_image_version ${imageVersion} --base_dir ./${repositoryName} | kubectl apply -f -"
         }
     }
     
@@ -54,7 +61,6 @@ def call(gitUsername, repositoryName, dockerUsername) {
     stage('Deploy on Production') {
         node('master') {            
             sh "echo 'Deploy on Production'";
-            sh "python3 ~/kube_renderer/kube_renderer.py --instance_status production --docker_image_version ${imageVersion} --base_dir ./${repositoryName} | kubectl apply -f -"
         }
     }
 }
