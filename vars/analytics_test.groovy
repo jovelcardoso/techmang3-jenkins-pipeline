@@ -11,7 +11,7 @@ def call(gitUsername, repositoryName) {
 
 //            sh "cd ~/home/mis/"
 
-            sh "cd insight/"
+            sh "cd ${repositoryName}/"
             sh "ls"
             // Setting up the minor build version
             Date date = new Date()
