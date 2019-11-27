@@ -9,7 +9,7 @@ def call() {
             // Pulling the changes to the renderer repository.
 //            sh "cd ~/kube_renderer && git pull";
             sh "pwd"
-            sh "cd /home/mis/"
+            sh "cd ~/home/mis/"
 
             sh "cd insight/"
             sh "ls"
