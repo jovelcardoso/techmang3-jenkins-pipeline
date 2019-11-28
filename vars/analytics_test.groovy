@@ -23,38 +23,34 @@ def call(gitUsername, repositoryName) {
     }
 
     stage('Build and Test') {
-        node('master') {
-            // Runing the test cases on the docker image if it is applicable.
-            sh "echo 'Running test cases'";
-            parallel {
-                stage('Test On Windows') {
-                    agent {
-                        label "windows"
-                    }
-                    steps {
-                        bat "run-tests.bat"
-                    }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
-                        }
-                    }
+        // Runing the test cases on the docker image if it is applicable.
+        parallel {
+            stage('Test On Windows') {
+                agent {
+                    label "windows"
                 }
-                stage('Test On Linux') {
-                    agent {
-                        label "linux"
-                    }
-                    steps {
-                        sh "run-tests.sh"
-                    }
-                    post {
-                        always {
-                            junit "**/TEST-*.xml"
-                        }
+                steps {
+                    bat "run-tests.bat"
+                }
+                post {
+                    always {
+                        junit "**/TEST-*.xml"
                     }
                 }
             }
-
+            stage('Test On Linux') {
+                agent {
+                    label "linux"
+                }
+                steps {
+                    sh "run-tests.sh"
+                }
+                post {
+                    always {
+                        junit "**/TEST-*.xml"
+                    }
+                }
+            }
         }
     }
     stage('Deploy on Staging') {
