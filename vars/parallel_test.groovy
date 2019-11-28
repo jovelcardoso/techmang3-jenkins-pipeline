@@ -1,5 +1,4 @@
-pipeline {
-    agent none
+def call() {
     stages {
         stage('Run Tests') {
             parallel {
