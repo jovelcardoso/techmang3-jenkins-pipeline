@@ -23,16 +23,16 @@ def call(gitUsername, repositoryName) {
 //    }
 
 
-    stage('Run Tests') {
-        stage('Test On Windows') {
-            agent {
-                label "windows"
-            }
-        }
-        stage('Test On Linux') {
-            agent {
-                label "linux"
-            }
+    stage('run-parallel-branches') {
+        steps {
+            parallel(
+                    a: {
+                        echo "This is branch a"
+                    },
+                    b: {
+                        echo "This is branch b"
+                    }
+            )
         }
     }
 }
