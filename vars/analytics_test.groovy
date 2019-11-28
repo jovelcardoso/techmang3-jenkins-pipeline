@@ -23,17 +23,39 @@ def call(gitUsername, repositoryName) {
     }
 
     stage('Build and Test') {
-        node('master') {
-            sh "ls -sh"
-            // Runing the test cases on the docker image if it is applicable.
+        parallel {
             stage('Test On Windows') {
-                sh "ls -sh"
+                agent {
+                    label "windows"
+                }
+                steps {
+                    bat "run-tests.bat"
+                }
+                post {
+                    always {
+                        junit "**/TEST-*.xml"
+                    }
+                }
             }
             stage('Test On Linux') {
-                sh "ls -sh"
+                agent {
+                    label "linux"
+                }
+                steps {
+                    sh "run-tests.sh"
+                }
+                post {
+                    always {
+                        junit "**/TEST-*.xml"
+                    }
+                }
             }
+//        node('master') {
+//            sh "ls -sh"
+//        }
         }
     }
+
     stage('Deploy on Staging') {
         node('master') {
             def userInput = input(
