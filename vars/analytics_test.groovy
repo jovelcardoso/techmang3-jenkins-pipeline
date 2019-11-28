@@ -23,13 +23,15 @@ def call(gitUsername, repositoryName) {
     }
 
     stage('Build and Test') {
-        sh "ls -sh"
-        // Runing the test cases on the docker image if it is applicable.
-        stage('Test On Windows') {
+        node('master') {
             sh "ls -sh"
-        }
-        stage('Test On Linux') {
-            sh "ls -sh"
+            // Runing the test cases on the docker image if it is applicable.
+            stage('Test On Windows') {
+                sh "ls -sh"
+            }
+            stage('Test On Linux') {
+                sh "ls -sh"
+            }
         }
     }
     stage('Deploy on Staging') {
